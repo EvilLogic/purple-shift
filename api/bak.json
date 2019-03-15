@@ -1,0 +1,29 @@
+[{
+	"number": 1,
+	"name": "team1",
+	"bpoints": 200,
+	"rpoints": 50,
+	"iscore": 100,
+	"total": 100
+}, {
+	"number": 2,
+	"name": "team2",
+	"bpoints": 50,
+	"rpoints": 250,
+	"iscore": 100,
+	"total": 100
+}, {
+	"number": 3,
+	"name": "team3",
+	"bpoints": 150,
+	"rpoints": 100,
+	"iscore": 100,
+	"total": 100
+}, {
+	"number": 4,
+	"name": "team4",
+	"bpoints": 300,
+	"rpoints": 50,
+	"iscore": 100,
+	"total": 100
+}]

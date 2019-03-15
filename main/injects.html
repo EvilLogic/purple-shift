@@ -1,0 +1,20 @@
+<div id="injects-go-here" class="row">
+</div>
+
+<script id="injectTemplate" type="text/x-jsrender">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{:title}}</h5>
+		<h6 class="card-text">{{:points}} points</h6>
+        <p class="card-text">{{:question}}</p>
+        <div class="input-group mb-3">
+          <input id="{{:title}}-ans" type="text" class="form-control" placeholder="Answer" aria-label="Answer" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button id="{{:title}}" class="btn btn-outline-primary" type="button" onclick="inject(this)">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
