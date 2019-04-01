@@ -1,13 +1,13 @@
 [{
-	"name": "Ping Scan",
-	"port": 0,
-	"points": 5
-}, {
 	"name": "HTTP Scan",
 	"port": 80,
 	"points": 10
 }, {
-	"name": "DNS Scan",
-	"port": 53,
+	"name": "RPC Scan",
+	"port": 139,
 	"points": 10
+	}, {
+	"name": "SMB Scan",
+	"port": 445,
+	"points": 20
 }]

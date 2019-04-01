@@ -1,5 +1,12 @@
 /* globals Chart:false, feather:false */
 
+function timer(){
+    updateGraph()
+}
+
+setInterval(function(){
+    timer()}, 30000)
+
 function updateGraph(){
   var tnames = [];
   var bpoints = [];
@@ -21,7 +28,7 @@ function updateGraph(){
 
   for (t in teams) {
     tnames.push(teams[t]["name"]);
-	bpoints.push(teams[t]["bpoints"]);
+	bpoints.push(teams[t]["iscore"]);
 	rpoints.push(teams[t]["rpoints"]);
   }
   
@@ -32,19 +39,20 @@ function updateGraph(){
     data: {
       labels: tnames,
       datasets: [{
-		label: 'Blue Team Points',
+		label: 'Inject Points',
         data: bpoints,
-		backgroundColor: window.chartColors.blue,
-		borderColor: window.chartColors.blue,
+		backgroundColor: ["rgb(236, 204, 104)", "rgb(255, 165, 2)", "rgb(123, 237, 159)", "rgb(46, 213, 115)", "rgb(255, 127, 80)", "rgb(255, 99, 72)", "rgb(112, 161, 255)", "rgb(30, 144, 255)"],
+		borderColor: window.chartColors.green,
 		borderWidth: 1
       },
-	  {
-		label: 'Red Team Points',
-        data: rpoints,
-		backgroundColor: window.chartColors.red,
-		borderColor: window.chartColors.red,
-		borderWidth: 1
-	  }]
+	  //{
+		//label: 'Red Team Points',
+        //data: rpoints,
+		//backgroundColor: window.chartColors.red,
+		//borderColor: window.chartColors.red,
+		//borderWidth: 1
+	  //}
+	  ]
     },
     options: {
       responsive: true,
@@ -95,3 +103,4 @@ function updateGraph(){
 
   
 }())
+

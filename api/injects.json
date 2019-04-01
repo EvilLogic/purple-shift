@@ -1,21 +1,36 @@
 [{
-	"title": "Crypto 1",
-	"question": "Which cipher was used by the Romans?",
-	"points": 50,
-	"answer": "Caesar"
+	"title": "Question 1.1",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "virtio"
 }, {
-	"title": "Crypto 2",
-	"question": "What is the name of the keyed variant of Crypto 1?",
-	"points": 100,
-	"answer": "Vigenere"
+	"title": "Question 1.2",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "linux"
 }, {
-	"title": "Sam 1",
-	"question": "What is Sam's first name?",
-	"points": 200,
-	"answer": "Sam"
+	"title": "Question 2",
+	"question": "See samsclass",
+	"points": 20,
+	"answer": "mariadb"
 }, {
-	"title": "Winning 1",
-	"question": "When should I show up?",
-	"points": 1000,
-	"answer": "Saturday"
+	"title": "Question 3",
+	"question": "See samsclass",
+	"points": 15,
+	"answer": "8065"
+}, {
+	"title": "Question 4",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "invalid"
+}, {
+	"title": "Question 5",
+	"question": "See samsclass",
+	"points": 15,
+	"answer": "null"
+}, {
+	"title": "Question 6",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "fast-too_small"
 }]

@@ -16,14 +16,15 @@ import (
 )
 
 type Team struct {
-	Name		string	`json:"name"`
-	URL			string 	`json:"url"`
-	Number		int		`json:"number"`
-	BPoints		int		`json:"bpoints"`
-	RPoints		int		`json:"rpoints"`
-	IScore		int		`json:"iscore"`
-	Total		int		`json:"total"`
-	//Scans		[]Scan	`json:"scans"`
+	Name		string		`json:"name"`
+	URL			string 		`json:"url"`
+	Number		int			`json:"number"`
+	BPoints		int			`json:"bpoints"`
+	RPoints		int			`json:"rpoints"`
+	Injects		[]string	`json:"injects"`
+	IScore		int			`json:"iscore"`
+	Total		int			`json:"total"`
+	//Scans		[]Scan		`json:"scans"`
 }
 
 type Inject struct {
@@ -50,6 +51,7 @@ var teams 		[]Team
 var injects 	[]Inject
 var scans 		[]Scan
 var interval	int
+var ticker		*time.Ticker
 
 func main() {
 	http.HandleFunc("/css/", serveCSS)
@@ -59,6 +61,7 @@ func main() {
 	http.HandleFunc("/scan/", scanHandler)
 	http.HandleFunc("/", viewHandler)
 	mapinit()
+	//startScans()
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -105,9 +108,14 @@ func injectHandler(w http.ResponseWriter, r *http.Request) {
 	log.Print(answer)
 	
 	for _, e := range injects {
-		if e.Title == answer.Title && e.Answer == answer.Answer{
+		if e.Title == answer.Title && strings.Contains(strings.ToLower(answer.Answer), strings.ToLower(e.Answer)) {
 			for i, _ := range teams {
 				if teams[i].Name == answer.Team {
+					if contains(e.Title, teams[i]) {
+						fmt.Fprintf(w, "already solved")
+						return
+					}
+					teams[i].Injects = append(teams[i].Injects, e.Title)
 					teams[i].IScore += e.Points
 					fmt.Fprintf(w, "correct")
 					return
@@ -118,6 +126,13 @@ func injectHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
     fmt.Fprintf(w, "incorrect")
+}
+
+func contains(ti string, te Team) bool{
+	for _, e := range te.Injects {
+		if e == ti { return true }
+	}
+	return false
 }
 
 func mapinit(){
@@ -134,7 +149,6 @@ func mapinit(){
 	
     fmt.Println("%#v", teams)
 	fmt.Println("%#v", injects)
-	teams[0].BPoints = 1000
 }
 
 func getJSON(v interface{}) string {
@@ -170,12 +184,28 @@ func scanHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "it works!")
 }
 
+func startScans() {
+	ticker = time.NewTicker(30 * time.Second)
+	quit := make(chan struct{})
+	go func() {
+		for {
+			select {
+			case <- ticker.C:
+			scanTeams()
+			case <- quit:
+			ticker.Stop()
+			return
+			}
+		}
+	}()
+}
+
 func scanTeams() {
 	ps := &PortScanner{
 		tlist:  teams,
 		lock: 	semaphore.NewWeighted(512),
 	}
-	ps.Start(500*time.Millisecond)
+	ps.Start(3000*time.Millisecond)
 }
 
 type PortScanner struct {
@@ -212,17 +242,18 @@ func (ps *PortScanner) Start(timeout time.Duration) {
 			
 			ps.lock.Acquire(context.TODO(), 1)
 			wg.Add(1)
-			go func(target string) {
+			go func(target string, team *Team) {
 				defer ps.lock.Release(1)
 				defer wg.Done()
 				
 				if ScanPort(target, timeout) == "open" {
-					log.Print(target)
-					teams[i].BPoints += s.Points
+					log.Print(target + " open")
+					team.BPoints += s.Points
 				} else {
-					teams[i].RPoints += s.Points
+					log.Print(target + " close")
+					team.RPoints += s.Points
 				}
-			}(target)
+			}(target, &teams[i])
 		}
 	}
 }

@@ -13,6 +13,7 @@ function inject(e){
         document.getElementById(id).className = "btn btn-success";
         document.getElementById(id).innerHTML = "Correct!";
       } else {
+		  document.getElementById(id).innerHTML = this.responseText;
 		  document.getElementById(id).className = "btn btn-outline-danger";
 	  }
     }
@@ -22,7 +23,7 @@ function inject(e){
   var obj = new Object();
    obj.title = id;
    obj.answer = answer;
-   obj.team = team
+   obj.team = team;
    var jsonString= JSON.stringify(obj);
   
   xmlhttp.send(jsonString);

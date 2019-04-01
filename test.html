@@ -37,6 +37,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 	<script src="https://www.jsviews.com/download/jsrender.min.js"></script>
+	<script id="teamTemplate" type="text/x-jsrender"><option value="{{:teamname}}">{{:teamname}}</option></script>
   </head>
   <body>
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,10 +52,6 @@
       <div class="modal-body">
 	    <select class="custom-select" id="teamSelect">
     <option value="Choose..." selected>Choose...</option>
-    <option value="team1">team1</option>
-    <option value="team2">team2</option>
-    <option value="team3">team3</option>
-	<option value="team4">team4</option>
   </select>
       </div>
       <div class="modal-footer">
@@ -89,6 +86,12 @@
             <a class="nav-link" data-toggle="tab" href="" onclick="setPage('injects')">
               <span data-feather="file"></span>
               Injects
+            </a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="" onclick="setPage('instructions')">
+              <span data-feather="file"></span>
+              Instructions
             </a>
           </li>
           <li class="nav-item">
