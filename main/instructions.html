@@ -1,461 +1,183 @@
 
-<!-- saved from url=(0040)https://samsclass.info/140/proj/pur1.htm -->
+<!-- saved from url=(0040)https://samsclass.info/140/proj/pur2.htm -->
 <html class="gr__samsclass_info"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>Purple 1: Drupal, Splunk, and Suricata</title>
+<title>Purple Competion 2: Drupal, Splunk, and Suricata</title>
 </head>
 <body bgcolor="#cccccc" style="font-family:Arial" data-gr-c-s-loaded="true">
-<h1>Purple 1: Drupal, Splunk, and Suricata</h1>
+<h1 align="center">Purple Competition #2</h1>
+<hr>
 <h2>What You Need for This Project</h2>
 <ul>
 <li>A computer with an Internet connection.
 </li><li>A Google account and a credit card (which won't be charged)
 </li></ul>
+<h2>Purpose</h2>
+Practice using Google Cloud, Suricata, Splunk, Metasploit, and
+custom exploits in Python and Ruby.
 <hr>
-<h1>Task 1: Create Cloud Servers (20 pts)</h1>
-Make two Google Cloud machines, allowing
-HTTP and HTTPS traffic, as shown below.
+<h1>Task 1: Creating Cloud Servers</h1>
+<h2>Creating a Google Cloud Debian Server</h2>
+If you made a Google Cloud Debian server
+previously, use that.
 <p>
-One machine is the <b><i>attacker</i></b>
-running Debian 9, and the other is the
-<b><i>target</i></b>
-running Ubuntu 18.04.
+If you did not, follow these instructions:
 </p><p>
-Instructions are available here:
-</p><p>
-<b>
-<a href="https://samsclass.info/123/proj14/p1cgc.htm">
-https://samsclass.info/123/proj14/p1cgc.htm</a>
-</b>
-</p><p><img src="./instructions_files/rvb_drupal1.png"></p><p>
-</p><p><img src="./instructions_files/rvb_drupal2.png"></p><p>
-</p><h2>1.1: Record Your Success (10 pts)</h2>
-On the Debian server, execute the <b>lshw</b>
-command. The text covered by the green
-box in the image below is the flag.
-<p><img src="./instructions_files/rvb_drupal3.png"></p><p>
-</p><h2>1.2: Record Your Success (10 pts)</h2>
-On the Ubuntu server, execute these commands:
-<blockquote><b><big><code><pre>sudo apt update
-sudo apt install hwinfo
-sudo hwinfo
-</pre></code></big></b></blockquote>
-Find the portion of the output shown below.
-The text covered by the green
-box in the image below is the flag.
-<p><img src="./instructions_files/rvb_drupal4.png"></p><p>
-</p><hr>
-<h1>Task 2: Install Drupal 7.20 (20 pts)</h1>
-<h2>Install Apache and MySQL</h2>
-On the Ubuntu server, execute these commands,
-one at a time, entering reasonable answers
-to all the questions that appear.
-<blockquote><b><big><code><pre>sudo apt-get install apache2
-sudo apt-get install mysql-server mysql-client
-sudo mysql_secure_installation
-sudo systemctl start mysql.service
-sudo mysql -u root -p
-</pre></code></big></b></blockquote>
-<h2>Create the Drupal Database</h2>
-At the <b><big><code>mysql&gt;</code>,/big&gt;</big></b><big> prompt,
-execute these commands:
-<blockquote><b><big><code><pre>CREATE DATABASE drupal;
-CREATE USER drupaluser@localhost IDENTIFIED BY 'password';
-
-GRANT ALL ON drupal.* TO drupaluser@localhost;
-
-FLUSH PRIVILEGES;
-exit
-</pre></code></big></b></blockquote>
-<h2>Install PHP</h2>
-On the Ubuntu server, execute these commands.
-<blockquote><b><big><code><pre>sudo apt-get install php 
-sudo apt-get install libapache2-mod-php php-mysql php-xml 
-sudo apt-get install php-curl php-gd 
-sudo apt-get install imagemagick 
-sudo apt-get install php-recode php-tidy php-xmlrpc
-</pre></code></big></b></blockquote>
-<h2>Install Drupal</h2>
-On the Ubuntu server, execute these commands.
-<blockquote><b><big><code><pre>cd /tmp &amp;&amp; wget ftp.drupal.org/files/projects/drupal-7.26.tar.gz
-tar xzvf drupal*
-sudo mv drupal-7.26/* /var/www/html
-
-cp /var/www/html/sites/default/default.settings.php /var/www/html/sites/default/settings.php
-
-sudo rm /var/www/html/index.html
-
-sudo chmod -R 755 /var/www/html/*
-sudo chown -R www-data:www-data /var/www/html/*
-
-sudo a2enmod rewrite
-sudo a2enmod env
-sudo a2enmod dir
-sudo a2enmod mime
-</pre></code></big></b></blockquote>
-On the Ubuntu server, execute this command:
-<blockquote><b><big><code><pre>sudo nano /etc/apache2/sites-enabled/000-default.conf
-</pre></code></big></b></blockquote>
-Remove all the contents and insert the code shown below.
-<blockquote><b><big><code><pre>&lt;VirtualHost *:80&gt;
-
-     ServerAdmin admin@example.com
-     DocumentRoot /var/www/html/
-     ServerName example.com
-     ServerAlias www.example.com
-     ErrorLog ${APACHE_LOG_DIR}/error.log
-     CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-      &lt;Directory /var/www/html/&gt;
-           Options FollowSymlinks
-           AllowOverride All
-           Require all granted
-      &lt;/Directory&gt;
-      &lt;Directory /var/www/html/&gt;
-           RewriteEngine on
-           RewriteBase /
-           RewriteCond %{REQUEST_FILENAME} !-f
-           RewriteCond %{REQUEST_FILENAME} !-d
-           RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
-      &lt;/Directory&gt;
-
-&lt;/VirtualHost&gt;
-</pre></code></big></b></blockquote>
-Savee the file with <b>Ctrl+X</b>, <b>Y</b>,
-Enter.
+<a href="https://samsclass.info/140/proj/gclprep.htm"><b>
+Google Cloud Preparation</b></a>
+</p><h2>Creating an Image</h2>
+First, you need to create a disk
+image from my public image, which
+is stored on the Google Cloud.
 <p>
-Execute this command to
-restart Apache2:
-</p><blockquote><b><big><code><pre>sudo systemctl restart apache2
+In Google Cloud Platform,
+on the left side, click
+"<b>Compute Engine</b>",
+<b>Images</b>,
+as shown below.
+</p><p><img src="./instructions_files/pur2-9.png"></p><p>
+At the top center of the next
+page,
+click
+"<b>CREATE IMAGE</b>",
+as shown below.
+</p><p><img src="./instructions_files/pur2-10.png"></p><p>
+As shown below,
+create an image using a
+Source of "<b>Cloud Storage file</b>"
+and a Cloud Storage file of:
+</p><blockquote><b><big><code><pre>gs://samsimages/purple1.tar.gz
 </pre></code></big></b></blockquote>
-<h2>Set Up Drupal</h2>
-In the Google Cloud Platform console,
-find the external IP address of your Drupal
-server, as shown below.
-<p><img src="./instructions_files/rvb_drupal5.png"></p><p>
-In a Web browser, open this URL, adjusting the
-IP address as necessary:
-</p><blockquote><b><big><code><pre>http://34.73.73.12
-</pre></code></big></b></blockquote>
-The Drupal installation page opens,
+Click
+<b>Create</b>. This took 5 minutes when
+I did it.
+<p><img src="./instructions_files/pur2-10.png"></p><p>
+When the process finishes, your
+image appears in the Images list,
 as shown below.
-<p><img src="./instructions_files/rvb_drupal7.png"></p><p>
-Install Drupal with the default options.
-You chose the Drupal database name, username,
-and password earlier, after installing "MySQL".
-</p><p>
-<b><i>DON'T ALLOW UPDATES!</i></b>
-</p><p>
-We need to use an old, vulnerable version
-of Drupal.
-</p><p>
-Your Drupal page appears,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal6.png"></p><p>
-</p><h2>2: Record Your Success (20 pts)</h2>
-At the top right of this page, click
-<b>Reports</b>,
-"<b>Status report</b>".
-The text covered by the green
-box in the image below is the flag.
-<p><img src="./instructions_files/rvb_drupal8.png"></p><p>
-</p><hr>
-<h1>Task 3: Install Splunk</h1>
-<h2>Getting the Download Link</h2>
-In a Web browser, go to
-<p><b>
-<a href="https://www.splunk.com/">
-https://www.splunk.com</a></b>
-</p><p>
-At the top right, click the tiny
-head-and-shoulders icon,
-outlined in aqua in the image below.
-</p><p><img src="./instructions_files/rvb_drupal9.png"></p><p>
-If you have a Splunk account, log in.
-Otherwise create one now.
-</p><p>
-At the top right, click the green
-"<b>Free Splunk</b>" button.
-</p><p>
-At the lower left of the next page, in
-the "Splunk Enterprise" sectin, click
-"<b>Download Free 60-Day Trial</b>",
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal10.png"></p><p>
-On the next page, click the <b>Linux</b> tab,
-and, in the ".deb" line, click the
-"<b>Download Now</b>" button,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal11.png"></p><p>
-On the next page, accept the agreement
-and click the
-"<b>Start Your Download Now</b>" button,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal12.png"></p><p>
-When the download starts, cancel it.
-At the top right of the next page,
-click "<b>Command Line (wget)</b>".
-</p><p>
-Highlight the command in the pop-up box
-and copy it,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal13.png"></p><p>
-</p><h2>Installing the Software</h2>
-On your Target Linux machine, in a terminal
-window, execute the command you just copied.
-The file downloads,
-as shown below.
-<p><img src="./instructions_files/rvb_drupal14.png"></p><p>
-
-On the Ubuntu server, execute these commands.
-</p><blockquote><b><big><code><pre>sudo dpkg -i splunk-7.2.5-088f49762779-linux-2.6-amd64.deb
-cd /opt/splunk/bin
-sudo ./splunk start
-</pre></code></big></b></blockquote>
-A license agreement fills the screen.
-Press <b>Q</b> to close it.
+</p><p><img src="./instructions_files/pur2-12.png"></p><p>
+</p><h2>Creating the Target Server</h2>
+At the top left, click
+"<b>VM instances</b>".
 <p>
-Enter <b>y</b> to agree to the license.
-Enter a username and password for Splunk.
+In the top center, click
+"<b>CREATE INSTANCE</b>".
 </p><p>
-Splunk installs,
+In the "Boot disk" section, click the
+<b>Change</b> button,
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal15.png"></p><p>
-</p><h2>Viewing the Splunk Page</h2>
-Open this URL, replacing the IP address
-with the public IP address of your Drupal
-server:
-<blockquote><b><big><code><pre>http://34.73.73.12:8000
-</pre></code></big></b></blockquote>
-The page won't open, because the Google Cloud
-firewall is blocking it.
-<h2>Opening Port 8000</h2>
-In the Google Cloud Platform page,
-in the line for your Drupal server,
-on the right side,
-click the three-dot icon, and click
-"<b>View network details</b>",
+</p><p><img src="./instructions_files/pur2-6.png"></p><p>
+In the "Boot disk" box,
+on the "<b>Custom images</b>"
+tab, select <b>purple1</b>,
 as shown below.
-<p><img src="./instructions_files/rvb_drupal16.png"></p><p>
-On the next page, on the left side,
-click "<b>Firewall rules</b>".
 </p><p>
-At the top center, click
-"<b>CREATE FIREWALL RULE</b>",
+Click <b>Select</b>.
+</p><p><img src="./instructions_files/pur2-5.png"></p><p>
+In the Firewall section, allow both
+HTTP and HTTPS traffic,
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal17.png"></p><p>
-Add a new "ingress" rule allowing port 8000,
+</p><p>
+Click <b>Create</b>.
+</p><p><img src="./instructions_files/pur2-7.png"></p><p>
+When your server is created, it
+appears in the
+"VM instances"
+list,
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal18.png"></p><p>
-Open the Splunk management page again.
-It appears, as shown below.
-</p><p><img src="./instructions_files/rvb_drupal21.png"></p><p>
-Log in with the administrator credentials
-you specified when installing Splunk,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal19.png"></p><p>
-</p><h2>3: Record Your Success (15 pts)</h2>
-In the Splunk management page,
-at the too, click <b>Settings</b>,
-"<b>Server settings</b>",
-"<b>General settings</b>".
+</p><p><img src="./instructions_files/pur2-13.png"></p><p>
+</p><h2>Testing Drupal</h2>
+Find the "External IP" of your
+target server, as shown in the
+image above.
 <p>
-The text covered by the green
-box in the image below is the flag.
-</p><p><img src="./instructions_files/rvb_drupal20.png"></p><p>
-</p><hr>
-<h1>Task 4: Monitoring the Logs</h1>
-In the Splunk administration page,
-click "<b>Add Data</b>",
-as shown below.
-<p><img src="./instructions_files/rvb_drupal21.png"></p><p>
-If a box pops up asking you to take
-a tour, click <b>Skip</b>.
-</p><p>
-In the next page,
-scroll down to the "Or get data
-in with the following methods"
-section, and click
-<b>Monitor</b>,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal22.png"></p><p>
-In the "Add Data" screen,
-on the left side,
-click "<b>Files &amp; Directories</b>".
-</p><p>
-On the right side, enter a
-"File or Directory" of
-</p><blockquote><b><big><code><pre>/var/log
-</pre></code></big></b></blockquote>
-as shown below.
-<p><img src="./instructions_files/rvb_drupal23.png"></p><p>
-At the top right, click the green
-<b>Next</b> button.
-</p><p>
-Click <b>Review</b>.
-Click <b>Submit</b>.
-</p><p>
-Click "<b>Start Searching</b>".
-</p><p>
-If a box pops up asking you to take
-a tour, click <b>Skip</b>.
-</p><p>
-Splunk shows log entries,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal14.png"></p><p>
-</p><h2>Finding Private IP Address</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>ip a
-</pre></code></big></b></blockquote>
-Find your server's private IP address,
-as highlighted in the image below.
-<p><img src="./instructions_files/rvb_drupal25.png"></p><p>
-</p><h2>Enabling Password Authentication</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>sudo nano /etc/ssh/sshd_config
-</pre></code></big></b></blockquote>
-Enable password authentication,
-as shown below.
-<p><img src="./instructions_files/rvb_drupal26.png"></p><p>
-Save the file with <b>Ctrl+X</b>,
-<b>Y</b>, Enter.
-</p><p>
-Execute this command to restart
-SSH:
-</p><blockquote><b><big><code><pre>sudo systemctl restart ssh
-</pre></code></big></b></blockquote>
-<h2>Making Login Attempts</h2>
-On your <b><i>attacker</i></b> server,
-execute this command,
-replacing the IP address
-with the private IP address of your Drupal
+In a Web browser, open this URL,
+replacing the IP address with the
+correct address of your target
 server.
-<blockquote><b><big><code><pre>ssh fred@10.142.0.4
+</p><blockquote><b><big><code><pre>http://35.236.41.106
 </pre></code></big></b></blockquote>
-Enter incorrect passwords several times,
+You should see a Drupal page,
 as shown below.
-<p><img src="./instructions_files/rvb_drupal28.png"></p><p>
-</p><h2>Viewing Recent Events</h2>
-In the Splunk management page,
-at the top left, click
-<b>splunk</b>. The main
-Splunk page appears,
-as shown below.
-<p><img src="./instructions_files/rvb_drupal21.png"></p><p>
-On the left side, click
-"<b>Search &amp; Reporting</b>".
-</p><p>
-In the Search page, in the lower right,
-click the "<b>Data Summary</b>"
-button,
-as shown below.
-</p><p><img src="./instructions_files/rvb_drupal29.png"></p><p>
-A "Data Summary" box pops up,
-as shown below.
-</p><p>
-Click the hostname of your server,
-which appears in blue letters.
-</p><p><img src="./instructions_files/rvb_drupal30.png"></p><p>
-</p><h2>4: Record Your Success (10 pts)</h2>
-In Splunk,
-find a "Failed password" event for
-"fred", as shown below.
+<p><img src="./instructions_files/pur2-14.png"></p><p>
+</p><h2>Starting Splunk</h2>
+In the
+"VM instances"
+list, on the right side,
+on the line for your target server,
+click <b>SSH</b> to open a Terminal.
 <p>
-The text covered by the green
-box in the image below is the flag.
-</p><p><img src="./instructions_files/rvb_drupal27.png"></p><p>
-</p><hr>
-<h1>Task 5: Install Suricata</h1>
-<h2>Installing Suricata from a PPA Repository</h2>
-On your Drupal <b><i>target</i></b> server,
-execute these commands:
-<blockquote><b><big><code><pre>sudo add-apt-repository ppa:oisf/suricata-stable
-sudo apt update
-sudo apt-get install suricata 
+In the Terminal, execute this
+command to start Splunk:
+</p><blockquote><b><big><code><pre>sudo /opt/splunk/bin/splunk start
 </pre></code></big></b></blockquote>
-<h2>Configuring a Test Rule</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>sudo nano /etc/suricata/rules/test-ddos.rules
-</pre></code></big></b></blockquote>
-Paste in the code below. This rule fires when there are
-more than 10 attempted connections within one second.
-<blockquote><b><big><code><pre>alert tcp any any -&gt; $HOME_NET 80 (msg: "Possible DDoS attack"; flags: S; flow: stateless; threshold: type both, track by_dst, count 20, seconds 1; sid:1000001; rev:1;)
-</pre></code></big></b></blockquote>
-Save the file with <b>Ctrl+X</b>, <b>Y</b>, Enter.
-<p>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-</p><blockquote><b><big><code><pre>sudo nano /etc/suricata/suricata.yaml
-</pre></code></big></b></blockquote>
-Press <b>Ctrl+W</b> and search for "<b>rule-files</b>".
-<p>
-Adjust the "default-rule-path" and insert a "Custom Test Rule",
+Splunk starts,
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal37.png"></p><p>
-Use <b>Ctrl+W</b> to find all references to "eth0"
-and change them to "ens4"
-</p><p>
-Save the file with <b>Ctrl+X</b>, <b>Y</b>, Enter.
-</p><h2>Start Suricata</h2>
+<p><img src="./instructions_files/pur2-15.png"></p><p>
+</p><h2>Starting Suricata</h2>
 On your Drupal <b><i>target</i></b> server,
 execute these commands:
 <blockquote><b><big><code><pre>sudo service suricata stop
 sudo rm /var/run/suricata.pid
 sudo suricata -D -c /etc/suricata/suricata.yaml -i ens4
 </pre></code></big></b></blockquote>
-<h2>Monitor the Suricata Log</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>tail -f /var/log/suricata/fast.log
-</pre></code></big></b></blockquote>
-<h2>Perform a SYN FLOOD Attack</h2>
-On the <b><i>attack</i></b> server,
-execute these commands,
-replacing the IP address in the second command with
-the address of your Drupal server.
-<blockquote><b><big><code><pre>sudo apt install hping3
-sudo hping3 -c 20 -S -p 80 -i u10000  10.142.0.4
-</pre></code></big></b></blockquote>
-The packet flood runs,
-as shown below.
-<p><img src="./instructions_files/rvb_drupal38.png"></p><p>
-</p><h2>5: Record Your Success (15 pts)</h2>
-An alert appears on the target server.
+<h2>Testing Splunk</h2>
+In a Web browser, open this URL,
+replacing the IP address with the
+correct address of your target
+server.
 <p>
-The text covered by the green
-box in the image below is the flag.
-</p><p><img src="./instructions_files/rvb_drupal39.png"></p><p>
-</p><hr>
-<h1>Task 6: Updating Suricata Rules</h1>
-<h2>Getting the Rules</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>sudo suricata-update
+<i><b>Note that this page uses port 443,
+but it does NOT use HTTPS.</b></i>
+</p><p>
+</p><blockquote><b><big><code><pre>http://35.236.41.106:443
 </pre></code></big></b></blockquote>
-This places a ruleset into the directory
-highlighted in the image below:
-<p><img src="./instructions_files/rvb_drupal40.png"></p><p>
-</p><h2>Configurting Suricata to Use the New Rules</h2>
-On your Drupal <b><i>target</i></b> server,
-execute this command:
-<blockquote><b><big><code><pre>sudo nano /etc/suricata/suricata.yaml
-</pre></code></big></b></blockquote>
-Press <b>Ctrl+W</b> and search for "<b>rule-files</b>".
-<p>
-Adjust the "default-rule-path" and comment out the "Custom Test Rule",
+You see the Splunk login page,
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal41.png"></p><p>
-Save the file with <b>Ctrl+X</b>, <b>Y</b>, Enter.
-</p><h2>Restarting Suricata</h2>
-On your Drupal <b><i>target</i></b> server,
-execute these commands:
-<blockquote><b><big><code><pre>sudo service suricata stop
-sudo rm /var/run/suricata.pid
-sudo suricata -D -c /etc/suricata/suricata.yaml -i ens4
+<p><img src="./instructions_files/pur2-16.png"></p><p>
+Log in with these credentials:
+</p><ul>
+<li>Username: <b>password</b>
+</li><li>Password: <b>P@ssw0rd</b>
+</li></ul>
+You see the Splunk home page,
+as shown below.
+<p><img src="./instructions_files/pur2-17.png"></p><p>
+</p><h2>Testing Connectivity</h2>
+In the
+"VM instances"
+list, on the right side,
+on the line for your Debian attack server,
+click <b>SSH</b> to open a Terminal.
+<p>
+In the Terminal, execute this
+command, replacing the IP address
+with the IP address of your
+target Drupal server:
+</p><blockquote><b><big><code><pre>ping -c 2 35.236.41.106
 </pre></code></big></b></blockquote>
-<h2>Viewing Suricata Alerts in Splunk</h2>
+You should see replies,
+as shown below.
+<p><img src="./instructions_files/pur2-18.png"></p><p>
+
+</p><h2>Sending Suspicious Traffic</h2>
+In the
+"VM instances"
+list, on the right side,
+on the line for your Debian attack server,
+click <b>SSH</b> to open a Terminal.
+<p>
+In the Terminal, execute this
+command, replacing the IP address
+with the IP address of your
+target Drupal server:
+</p><blockquote><b><big><code><pre>curl -A "Hentai" 35.236.41.106
+</pre></code></big></b></blockquote>
+The source code for the main Web page
+loads, beginning with the HTML code
+shown below, and scrolling down for a few
+screens.
+<p><img src="./instructions_files/pur2-19.png"></p><p>
+</p><h2>Viewing the Suricata Alert in Splunk</h2>
 In your Splunk page,
 at the top left, click
 <b>splunk&gt;</b>
@@ -468,42 +190,235 @@ In the lower center, click the
 </p><p>
 In the "Data Summary" box, click the
 <b>Sources</b> tab.
-Several Suricata files appear,
+Several source files appear,
 as shown below.
 </p><p><img src="./instructions_files/rvb_drupal42.png"></p><p>
+In the "filter" box, enter
+<b>sur</b>
+</p><p>
+Several Suricata files appear,
+as shown below.
+</p><p><img src="./instructions_files/rvb_drupal45.png"></p><p>
 Click <b>/var/log/suricata/fast.log</b>.
 </p><p>
-The alert you saw previously appears in
-Splunk,
+You see an alert containing "Hentai",
 as shown below.
-</p><p><img src="./instructions_files/rvb_drupal43.png"></p><p>
-</p><h2>Perform Another SYN FLOOD Attack</h2>
-On the <b><i>attack</i></b> server,
-execute this command,
-replacing the IP address in the second command with
-the address of your Drupal server.
-<blockquote><b><big><code><pre>sudo hping3 -c 20 -S -p 80 -i u10000 10.142.0.4
-</pre></code></big></b></blockquote>
-<h2>Viewing the Suricata Alert in Splunk</h2>
-In Splunk, at the top right,
-click the
-<b>green magnifying glass button</b>.
+</p><p><img src="./instructions_files/pur2-20.png"></p><p>
+</p><h2>Flag 1: "Hentai" Alert (20 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 2: Protecting Your Server</h1>
+The vulnerable Drupal server will get hacked
+before long by automated attacks.
 <p>
-</p><h2>6: Record Your Success (10 pts)</h2>
-An alert appears, as shown below.
-<p>
-The text covered by the green
-box in the image below is the flag.
-</p><p><img src="./instructions_files/rvb_drupal44.png"></p><p>
-</p><hr>
-<h2>References</h2>
-<a href="https://websiteforstudents.com/install-drupal-cms-ubuntu-17-04-17-10/">
-How to Install Drupal CMS on Ubuntu 17.04 / 17.10</a><br>
-<a href="https://github.com/MKorostoff/drupalgeddon/blob/master/attack/exploit.php">
-MKorostoff/drupalgeddon</a><br>
-<a href="https://kifarunix.com/install-and-setup-suricata-on-ubuntu-18-04/">
-Install and Setup Suricata on Ubuntu 18.04</a><br>
-<p>
-Posted 3-21-19 <br>
+To prevent that, we'll configure the Google
+Cloud firewall to restrict access to
+only trusted IP addresses.
+</p><h2>Finding your Public IP Address</h2>
+In Google, search for
+<p><b>
+whats my ip
+</b></p><p>
+Your public IP appears,
+as shown below.
 </p><p>
-</p></big></body></html>
+Make a note of it.
+</p><p><img src="./instructions_files/pur2-23.png"></p><p>
+</p><h2>Adjusting the Firewall</h2>
+In the Google Cloud Platform page,
+in the line for your Drupal server,
+on the right side,
+click the three-dot icon, and click
+"<b>View network details</b>",
+as shown below.
+<p><img src="./instructions_files/pur2-21.png"></p><p>
+On the next page, on the left side,
+click "<b>Firewall rules</b>".
+</p><p>
+In the list of rules, click
+<b>default-allow-http</b>,
+as shown below.
+</p><p><img src="./instructions_files/pur2-22.png"></p><p>
+In the "Firewall rule details"
+page, at the top center, click
+<b>EDIT</b>.
+</p><p>
+Adjust the Source IP range to only include the IP
+of your Drupal attack server, and the
+public IP
+of your own computer,
+as shown below.
+</p><p><img src="./instructions_files/pur2-24.png"></p><p>
+At the bottom of the page,
+click <b>Save</b>.
+</p><p>
+</p><h2>Flag 2: Firewall Rule (5 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 3: Drupalgeddon Attack</h1>
+On your Debian attack server,
+copy code from this page into a file named "dru":
+<p><b>
+<a href="https://github.com/kenorb/drupageddon/blob/master/drupal_7.x_sql_injection_sa-core-2014-005.py">
+https://github.com/kenorb/drupageddon/blob/master/drupal_7.x_sql_injection_sa-core-2014-005.py
+</a></b>
+</p><p>
+Then copy code from this page into a file named "drupalpass.py":
+</p><p><b>
+<a href="https://github.com/cvangysel/gitexd-drupalorg/blob/master/drupalorg/drupalpass.py">
+https://github.com/cvangysel/gitexd-drupalorg/blob/master/drupalorg/drupalpass.py
+</a></b>
+</p><p>
+Use <b>chmod</b> to make "dru" executable and send some attacks to your
+target server,
+as shown below.
+</p><p><img src="./instructions_files/pur2-26.png"></p><p>
+</p><h2>Detecting the Attack</h2>
+In Splunk, find the Suricata alert shown below.
+<p><img src="./instructions_files/pur2-25.png"></p><p>
+</p><h2>Flag 3: Drupalgeddon Alert (10 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 4: Drupalgeddon 2 Attack</h1>
+On your Debian attack server,
+use this attack to exploit your target:
+<p><b>
+<a href="https://github.com/dreadlocked/Drupalgeddon2">
+https://github.com/dreadlocked/Drupalgeddon2
+</a></b>
+</p><p>
+You will have to install Ruby and resolve a missing dependency.
+</p><p>
+Attack your
+target server,
+as shown below.
+</p><p><img src="./instructions_files/pur2-27.png"></p><p>
+</p><h2>Recording Your Success</h2>
+In Splunk, find the Suricata alert shown below.
+The flag is the text covered by a green
+box. Enter that flag
+into the scoring engine to record your success.
+<p><img src="./instructions_files/pur2-28.png"></p><p>
+</p><h2>Flag 4: Drupalgeddon 2 Alert (20 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 5: Resizing your Disk</h1>
+To add more Splunk modules, we'll need a larger
+hard disk.
+<p>
+On the purple1 machine, in an SSH session,
+execute these commands to see the current disk
+space and begin a proper shutdown:
+</p><blockquote><b><big><code><pre>df -h
+sudo halt
+</pre></code></big></b></blockquote>
+<p><img src="./instructions_files/pur2-30.png"></p><p>
+If it's taking too long, which it did for me,
+force a shutdown from the "VM instances"
+page:
+</p><p><img src="./instructions_files/pur2-31.png"></p><p>
+In Google Cloud Platform, on the left side, click
+"<b>Compute Engine</b>", <b>Disks</b>.
+</p><p>
+Click on the <b>purple1</b> disk, and then, at the top, on
+<b>EDIT</b>.
+</p><p>
+Cchange the disk size from 10 to 20 GB,
+as shown below.
+</p><p><img src="./instructions_files/pur2-32.png"></p><p>
+</p><h2>Flag 5: Disk Type (10 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<h2>Restarting your Server</h2>
+In Google Cloud Platform,
+start the purple1 server.
+<p>
+Run the <b>df -h</b> command
+and verify that the disk has more space,
+as shown below.
+</p><p><img src="./instructions_files/pur2-33.png"></p><p>
+</p><h2>Restarting Suricata and Splunk</h2>
+Restart Suricata and Splunk.
+<hr>
+<h1>Task 6: Adding Splunk Stream</h1>
+Go here:
+<p><b>
+<a href="https://splunkbase.splunk.com/app/1809/">
+https://splunkbase.splunk.com/app/1809/</a>
+</b>
+</p><p>
+Log in to a Splunk account. Download the <b>splunk-stream_712.tgz</b> file.
+</p><p>
+At the top left of Splunk, click "<b>splunk&gt;</b>"
+</p><p>
+At the top left , click the gear icon.
+The Apps page opens,
+as shown below.
+</p><p><img src="./instructions_files/pur2-29.png"></p><p>
+At the top right, click
+"<b>Install app from file</b>".
+</p><p>
+Click "<b>Choose File</b> and browse to the
+<b>splunk-stream_712.tgz</b> file.
+</p><p>
+Click <b>Upload</b>.
+</p><p>
+After a few minutes, you are prompted to restart Splunk.
+Do that.
+</p><p>
+Now Splunk has stream data,
+as shown below.
+</p><p><img src="./instructions_files/pur2-34.png"></p><p>
+</p><h2>Flag 6: Splunk Stream (10 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 7: Installing Metasploit</h1>
+Install Metasploit on your Debian attack server, as explained here:
+<p><b>
+<a href="https://computingforgeeks.com/how-to-install-metasploit-framework-on-ubuntu-18-04-debian-9/">
+https://computingforgeeks.com/how-to-install-metasploit-framework-on-ubuntu-18-04-debian-9/</a>
+</b></p><p>
+Execute these commands to start Metasploit and search for drupal attacks:
+</p><blockquote><b><big><code><pre>msfconsole
+search splunk
+</pre></code></big></b></blockquote>
+Drupalgeddon and drupalgeddon2 are both available,
+as shown below.
+<p><img src="./instructions_files/pur2-35.png"></p><p>
+</p><h2>Flag 7: Metasploit (10 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<hr>
+<h1>Task 8: Drupalgeddon via Metasploit</h1>
+Use Metasploit to perform a Drupalgeddon attack,
+as shown below.
+<p><img src="./instructions_files/pur2-36.png"></p><p>
+In the meterpreter session, execute these commands:
+</p><blockquote><b><big><code><pre>shell
+curl http://ad.samsclass.info
+</pre></code></big></b></blockquote>
+In Splunk, search for
+<blockquote><b><big><code><pre>ad.samsclass.info
+</pre></code></big></b></blockquote>
+as shown below.
+<p><img src="./instructions_files/pur2-37.png"></p><p>
+</p><h2>Flag 8: Source (10 pts)</h2>
+The flag is the text covered by a green
+box in the image above. Enter that flag
+into the scoring engine to record your success.
+<p>
+Posted 4-13-19 <br>
+</p><p>
+</p></body></html>

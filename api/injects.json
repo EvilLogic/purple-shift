@@ -1,36 +1,41 @@
 [{
 	"title": "Question 1.1",
 	"question": "See samsclass",
-	"points": 10,
-	"answer": "virtio"
-}, {
-	"title": "Question 1.2",
-	"question": "See samsclass",
-	"points": 10,
-	"answer": "linux"
+	"points": 20,
+	"answer": "mira"
 }, {
 	"title": "Question 2",
 	"question": "See samsclass",
-	"points": 20,
-	"answer": "mariadb"
+	"points": 5,
+	"answer": "second"
 }, {
 	"title": "Question 3",
 	"question": "See samsclass",
-	"points": 15,
-	"answer": "8065"
+	"points": 10,
+	"answer": "sqli"
 }, {
 	"title": "Question 4",
 	"question": "See samsclass",
-	"points": 10,
-	"answer": "invalid"
+	"points": 20,
+	"answer": "rce"
 }, {
 	"title": "Question 5",
 	"question": "See samsclass",
-	"points": 15,
-	"answer": "null"
+	"points": 10,
+	"answer": "persistent"
 }, {
 	"title": "Question 6",
 	"question": "See samsclass",
 	"points": 10,
-	"answer": "fast-too_small"
+	"answer": "response"
+}, {
+	"title": "Question 7",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "xxe"
+	}, {
+	"title": "Question 8",
+	"question": "See samsclass",
+	"points": 10,
+	"answer": "json"
 }]
