@@ -24,33 +24,31 @@ function download(){
     });
   }
 
-  function upload(e){
-    //Grab the other page and swap it out
+function upload(e){
+    //Get those dank secrets
+
+    pages = [
+        "teams",
+        "injects",
+        "scans"
+    ]
   
-    var id = e.id;
-    var answer = document.getElementById(id + '-ans').value
+    var password = document.getElementById("password").value
   
-    var title = "/inject/" + id;
+    pages.forEach(element => {
+        var title = "/settings/" + element;
   
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-         if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == 'correct') {
-          document.getElementById(id).className = "btn btn-success";
-          document.getElementById(id).innerHTML = "Correct!";
-        } else {
-            document.getElementById(id).innerHTML = this.responseText;
-            document.getElementById(id).className = "btn btn-outline-danger";
-        }
-      }
-    };
-    xmlhttp.open("POST", title, false);
-    
-    var obj = new Object();
-     obj.title = id;
-     obj.answer = answer;
-     obj.team = team;
-     var jsonString= JSON.stringify(obj);
-    
-    xmlhttp.send(jsonString);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(element + "json").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("POST", title, false);
+        xmlhttp.setRequestHeader("Password", password)
+
+        var jsonString= JSON.stringify(element);
+       
+        xmlhttp.send(jsonString);
+    });
   }
