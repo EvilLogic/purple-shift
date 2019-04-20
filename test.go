@@ -77,6 +77,11 @@ func loadPage(title string) ([]byte, error) {
 
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[1:]
+
+	if title == "" {
+		title = "test.html"
+	}
+
 	p, _ := loadPage(title)
 	fmt.Fprintf(w, "%s", p)
 }
@@ -172,7 +177,12 @@ func settingsHandler(w http.ResponseWriter, r *http.Request) {
 	pw := r.Header.Get("Password")
 	body, _ := ioutil.ReadAll(r.Body)
 
-	if len(body) > 0 && pw == "BuildYourOwnDamnBirdfeeder" {
+	if pw != "BuildYourOwnDamnBirdfeeder" {
+		fmt.Fprintf(w, "MESS WITH THE BEST DIE LIKE THE REST")
+		return
+	}
+
+	if len(body) > 0 {
 		path := r.URL.Path[10:]
 
 		if path == "teams" {
@@ -180,8 +190,7 @@ func settingsHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, getJSON(teams))
 		} else if path == "injects" {
 			json.Unmarshal(body, &injects)
-			secret := getSecret()
-			fmt.Fprintf(w, getJSON(secret))
+			fmt.Fprintf(w, getJSON(injects))
 		} else if path == "scans" {
 			json.Unmarshal(body, &scans)
 			fmt.Fprintf(w, getJSON(scans))
@@ -192,8 +201,7 @@ func settingsHandler(w http.ResponseWriter, r *http.Request) {
 		if path == "teams" {
 			fmt.Fprintf(w, getJSON(teams))
 		} else if path == "injects" {
-			secret := getSecret()
-			fmt.Fprintf(w, getJSON(secret))
+			fmt.Fprintf(w, getJSON(injects))
 		} else if path == "scans" {
 			fmt.Fprintf(w, getJSON(scans))
 		}
