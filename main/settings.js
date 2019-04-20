@@ -24,7 +24,7 @@ function download(){
     });
   }
 
-function upload(e){
+  function upload(){
     //Get those dank secrets
 
     pages = [
@@ -47,7 +47,7 @@ function upload(e){
         xmlhttp.open("POST", title, false);
         xmlhttp.setRequestHeader("Password", password)
 
-        var jsonString= JSON.stringify(element);
+        var jsonString = document.getElementById(element + "json").value;
        
         xmlhttp.send(jsonString);
     });
