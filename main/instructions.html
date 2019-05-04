@@ -1,173 +1,519 @@
 
-<!-- saved from url=(0044)https://games.samsclass.info/sqli/index.html -->
-<html class="gr__games_samsclass_info"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>SQLI Challenges</title>
+<!-- saved from url=(0039)https://samsclass.info/50/proj/pur5.htm -->
+<html class="gr__samsclass_info"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>
+Purple Competition 5: Cloud Server Monitoring with Sumo Logic</title>
 </head>
 <body bgcolor="#cccccc" style="font-family:Arial" data-gr-c-s-loaded="true">
-<h1>SQLI Challenges</h1><h1>
+<h1 align="center">
+Purple Competition 5: Cloud Server Monitoring with Sumo Logic
+</h1>
+<h2 align="center"><a href="https://samlols.samsclass.info/50/CTF-purp5/">
+Sam's Ugly Scoring Engine</a></h2>
 
-</h1><h2 align="center">
-<a href="https://purple.samsclass.info/">
-Kaz's Pretty Scoring Engine
-</a></h2>
-<hr>
-<h2>1. Essential SQL Commands</h2>
-First, click <a href="https://games.samsclass.info/sqli/reset_chal1.php"><b>here</b></a> to reset the server.
-<p>
-Try these commands to see how SQL works.
-</p><ul>
-<li>SHOW DATABASES
-</li><li>SHOW TABLES
-</li><li>SELECT 1
-</li><li>SELECT "peanut"
-</li><li>SELECT concat("peanut", "butter")
-</li><li>SELECT substr("peanut", 2, 2)
-</li><li>SELECT substr("peanut", 2, 1) = 'e'
-</li><li>SELECT substr("peanut", 2, 1) = 'a'
-</li><li>SELECT * FROM employees
-</li><li>SELECT id FROM employees
-</li><li>SELECT id, 2 FROM employees
-</li><li>SELECT name, id FROM employees WHERE id=1
-</li><li>SELECT concat(name, id) FROM employees WHERE id=1 OR 'cat'='dog' OR 2=2
-</li><li>INSERT INTO employees ( id, name, ssn ) VALUES ( 4, 'Kevin', '999-99-9999');
-</li><li>SELECT * from information_schema.tables
-</li><li>SELECT TABLE_NAME from information_schema.tables
-</li><li>SELECT * from information_schema.columns
-</li><li>SELECT COLUMN_NAME from information_schema.columns
-</li></ul>
-<blockquote>
-<form action="https://games.samsclass.info/sqli/chal1.php" method="post">
-<table cellpadding="5" border="10"><tbody><tr><td>
-<table cellpadding="5">
-<tbody><tr><td><big><b>Query:</b></big></td>
-<td><textarea name="q" rows="1" cols="80"></textarea></td></tr>
-
-<tr><td colspan="2" align="center"><big><b>
-<input type="submit" value="Submit">
-</b></big></td></tr>
-</tbody></table>
-</td></tr></tbody></table>
-</form>
-</blockquote>
-<h2>1.1: SSN (5 pts)</h2>
-The flag is Steve Jobs' SSN.
-<h2>1.2: YOUNG_MAKE (10 pts)</h2>
-Find the data shown below.
-The flag is covered by a green box.
-<blockquote><img src="./instructions_files/sqli1.png" border="1"></blockquote>
-<hr>
-<h2>2. Simple SQLi</h2>
-First, click <a href="https://games.samsclass.info/sqli/reset_chal2.php"><b>here</b></a> to reset the server.
-<p>
-Search for these names:
-</p><ul>
-<li>Bill Gates
-</li><li>Tip O'Neil
-</li><li>Sam
-</li><li>Sam' or 1=1 #
-</li><li>Sam' or 'a'='a
-</li><li>Sam' UNION SELECT 1 #
-</li></ul>
-<blockquote>
-<form action="https://games.samsclass.info/sqli/chal2.php" method="post">
-<table cellpadding="5" border="10"><tbody><tr><td>
-<table cellpadding="5">
-<tbody><tr><td><big><b>Name:</b></big></td>
-<td><textarea name="u" rows="1" cols="80"></textarea></td></tr>
-
-<tr><td colspan="2" align="center"><big><b>
-<input type="submit" value="Submit">
-</b></big></td></tr>
-</tbody></table>
-</td></tr></tbody></table>
-</form>
-</blockquote>
-<h2>2.1: SSN (15 pts)</h2>
-The flag is Steve Jobs' SSN.
-<h2>2.2: Password (20 pts)</h2>
-The flag is Steve Jobs' password.
-<h2>2.3: Sqlmap (10 pts)</h2>
-Use <a href="https://samsclass.info/124/proj11/pSQL-X3-123-sqlmap.htm">
-<b>Sqlmap</b></a> on this target:
-<p>
-<a href="http://ad.samsclass.info/sqli/chal2.php?u=x">
-<b>http://ad.samsclass.info/sqli/chal2.php?u=x</b></a>
-</p><p>
-The flag is the username, covered by a green box in the image below.
-</p><p><img src="./instructions_files/sqli2.png"></p><p>
-</p><h2>2.4: Sqlmap (20 pts)</h2>
-First, click <a href="https://games.samsclass.info/sqli/reset_chal2a.php"><b>here</b></a> to reset the server.
-<p>
-Use Sqlmap on this target:
-</p><p>
-<a href="https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs">
-<b>https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs</b></a>
-</p><p>
-The flag is in the output, covered by a green box in the image below.
-</p><p><img src="./instructions_files/sqli3.png"></p><p>
-</p><h2>2.5: Sqlmap (20 pts)</h2>
-Use Sqlmap on this target:
-<p>
-<a href="https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs">
-<b>https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs</b></a>
-</p><p>
-The flag is Steve Jobs' SSN.
-</p><h2>2.6: Sqlmap (20 pts)</h2>
-Use Sqlmap on this target:
-<p>
-<a href="https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs">
-<b>https://games.samsclass.info/sqli/chal2a.php?u=Steve%20Jobs</b></a>
-</p><p>
-The flag is the number indicating the highest-privilege user.
-</p><hr>
-<h2>3. Blind SQLi</h2>
-First, click <a href="https://games.samsclass.info/sqli/reset_chal3.php"><b>here</b></a> to reset the server.
-<p>
-Try these values:
-</p><ul>
-<li>Bill Gates
-</li><li>x
-</li><li>x' or 'a'='a
-</li><li>x' or 'b'='a
-</li><li>x' or 'a'='a'#
-</li><li>x' or LENGTH(database())=1 #
-</li></ul>
-<blockquote>
-<form action="https://games.samsclass.info/sqli/chal3.php" method="post">
-<table cellpadding="5" border="10"><tbody><tr><td>
-<table cellpadding="5">
-<tbody><tr><td><big><b>Name:</b></big></td>
-<td><textarea name="u" rows="6" cols="80"></textarea></td></tr>
-
-<tr><td colspan="2" align="center"><big><b>
-<input type="submit" value="Submit">
-</b></big></td></tr>
-</tbody></table>
-</td></tr></tbody></table>
-</form>
-</blockquote>
-<h2>3.1 Database Name Length (5 pts)</h2>
-The flag is the length of the database's name.
-<h2>3.2 SSN (10 pts)</h2>
-Try these values:
+<h2>What You Need for this Project</h2>
 <ul>
-<li>x' UNION select 1#
-</li><li>x' UNION SELECT name FROM employees WHERE name='Bill Gates' AND substr(name, 1, 1)='B'#
-</li><li>x' UNION SELECT name FROM employees WHERE name='Bill Gates' AND substr(name, 1, 1)='A'#
-</li><li>x' UNION SELECT name FROM employees WHERE name='Bill Gates' AND substr(name, 1, 1)&gt;'A'#
-</li><li>x' UNION SELECT name FROM employees WHERE name='Bill Gates' AND length(name)&gt;2#
+<li>A computer with a Web browser.
+</li><li>A credit card (it won't be charged)
 </li></ul>
-The flag is the first three digits of Bill Gates' SSN.
-<h2>3.3 ID (5 pts)</h2>
-The flag is admin's ID.
-<h2>3.4 Length (5 pts)</h2>
-The flag is the length of Bill Gates' password.
-<h2>3.5 Bill's Password (20 pts)</h2>
-The flag is Bill Gates' password.
-<h2>3.6 Password (30 pts)</h2>
-The flag is admin's password.
+<h2>Purpose</h2>
+To configure and use server monitoring, using
+Sumo Logic.
+<hr>
+<h1>Task 1: Making a Sumo Logic Free Account</h1>
+<h2>Getting Sample Data</h2>
+Download this file:
+
 <p>
-Updated 10:49 am 4-20-19 <br>
+<a href="https://samsclass.info/50/proj/apache_access_logs_tutorial.txt"><b>
+apache_access_logs_tutorial.txt</b>
+</a></p><p><a href="https://samsclass.info/50/proj/apache_access_logs_tutorial.txt">
+</a></p><h2><a href="https://samsclass.info/50/proj/apache_access_logs_tutorial.txt">Creating a Sumo Logic Account</a></h2><a href="https://samsclass.info/50/proj/apache_access_logs_tutorial.txt">
+Go here:
+</a><p><a href="https://samsclass.info/50/proj/apache_access_logs_tutorial.txt">
+</a><a href="https://www.sumologic.com/">
+<b>https://www.sumologic.com/</b></a>
+</p><p>
+At the top right, click the
+"<b>Start Free Trial</b>" button.
+</p><p>
+Enter an email address that you can
+read mail at and select
+"<b>Enterprise - Free Trial</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo40.png"></p><p>
+</p><h2>Activating your Account</h2>
+Read your email. Follow the instructions
+in the "Welcome to Sumo Logic" message,
+to create a password for your account
+and log in,
+as shown below.
+<p><img src="./instructions_files/sumo15.png"></p><p>
+</p><h2>Lengthening the Timeout</h2>
+In the bar, at the bottom,
+click on your name.
+<p>
+Click <b>Preferences</b>.
+</p><p>
+Change the "Web session timeout"
+to a larger value.
+</p><p>
+At the bottom of the page, click
+<b>Save</b>.
+</p><p>
+Sign out and sign in again to
+make the change take effect.
+
+At the "Welcome" page,
+clck
+"<b>Upload Files</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo2.png"></p><p>
+Upload the file,
+as shown below.
+</p><p><img src="./instructions_files/sumo3.png"></p><p>
+Wait for the process.
+Within a few minutes, it should
+complete,
+as shown below.
+</p><p>
+In the center, click the
+"<b>Start Searching My Logs</b>"
+button.
+</p><p><img src="./instructions_files/sumo4.png"></p><p>
+You see the pretty Apache
+dashboard,
+as shown below.
+</p><p><img src="./instructions_files/sumo5.png"></p><p>
+</p><h2>5.1: Finding California Visitors (10 pts)</h2>
+In the upper left, in the map,
+click the colored dots to zoom
+in and see the location of the visitors
+from the San Francisco Bay area.
+<p>
+The flag is covered by a green box
+in the image below.
+as shown below.
+</p><p><img src="./instructions_files/sumo6.png"></p><p>
+</p><hr>
+<h1>Task 2: Searching Log Data</h1>
+In the left bar, click the third
+icon, shaped like a folder.
+<p>
+Click <b>Apache</b> to expand it,
+revealing several prepared
+searches, as shown below.
+</p><p><img src="./instructions_files/sumo10.png"></p><p>
+Find these items:
+</p><h2>5.2: iPhones (5 pts)</h2>
+How many visitors used iPhones?
+<h2>5.3: Country (10 pts)</h2>
+What country had a total of 4 visits,
+with this time pattern?
+<p><img src="./instructions_files/sumo11.png"></p><p>
+</p><h2>5.4-5: Countries (10 pts)</h2>
+What countries had more than one HTTP
+error? The more northern country
+is flag 5.4, and the other is flag
+5.5.
+<p>
+Use the entire name of the country, not
+an abbreviation.
+</p><hr>
+<h1>Task 3: Monitoring a Google Cloud Server</h1>
+<h2>Collection Process for GCP Services</h2>
+<blockquote><i>
+The key components in the collection process for GCP services are: Google Stackdriver, Google Cloud Pub/Sub, and Sumo’s Google Cloud Platform (GCP) source running on a hosted collector.
+<p>
+The integration works like this: Google Stackdriver collects logs from GCP services. Once you’ve configured the pipeline shown below, the logs collected by Stackdriver will be published to a Google Pub/Sub topic. A Sumo GCP source on a hosted collector subscribed to that topic ingests the logs into Sumo.
+</p><p>
+From <a href="https://help.sumologic.com/07Sumo-Logic-Apps/06Google/Google_Cloud_Audit/Collect-Google-Cloud-Audit-Logs">
+Collect Logs for Google Cloud Audit</a>
+</p><p><img src="./instructions_files/sumo43.png"></p></i><p><i>
+</i></p></blockquote>
+<h2>Creating a Google Cloud Debian Server</h2>
+If you made a Google Cloud Debian server
+previously, use that.
+<p>
+If you did not, follow these instructions:
+</p><p>
+<a href="https://samsclass.info/140/proj/gclprep.htm"><b>
+Google Cloud Preparation</b></a>
 
 
-</p></body><div><div class="gr_-editor gr-iframe-first-load" style="display: none;"><div class="gr_-editor_back"></div><iframe class="gr_-ifr gr-_dialog-content" src="./instructions_files/saved_resource.html"></iframe></div></div><grammarly-card><div></div></grammarly-card><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>
+</p><h2>Configuring a Source</h2>
+On the Sumo Logic web page,
+on the left side, in the black bar,
+at the bottom, click
+"<b>Manage Data</b>".
+<p>
+Click <b>Collection</b>.
+</p><p>
+On the right side,
+click the "<b>Setup Wizard</b>" link.
+</p><p>
+On the Setup Wizard page, click
+"<b>Set Up Streaming Data</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo2.png"></p><p>
+On the Select Data Type page,
+click "<b>Linux System</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo19.png"></p><p>
+Copy the code in step 1,
+as shown below.
+</p><p><img src="./instructions_files/sumo20.png"></p><p>
+Execute that code on your Linux server,
+as shown below.
+</p><p><img src="./instructions_files/sumo21.png"></p><p>
+Within a minute or two, the <b>Continue</b>
+button becomes available,
+as shown below. Click it.
+</p><p><img src="./instructions_files/sumo22.png"></p><p>
+</p><blockquote>
+<table border="1" cellpadding="10"><tbody><tr><td>
+<h2>Troubleshooting</h2>
+If you have to repeat the installation,
+first uninstall the old collector with
+these commands:
+<blockquote><b><big><code><pre>sudo su -
+cd /usr/local/SumoCollector 
+./uninstall -q 
+exit
+</pre></code></big></b></blockquote>
+</td></tr></tbody></table>
+</blockquote>
+On the "Configure Source: Linux System" page,
+wait a minute or two for it to give up
+trying to find "default Source Paths". Then insert
+the three locations shown below.
+<p><img src="./instructions_files/sumo28.png"></p><p>
+On the Finish page, wait while the
+progress bar moves.
+</p><p>
+When it's done, and you see the page
+shown below,
+click "<b>Start Searching My Logs</b>".
+</p><p><img src="./instructions_files/sumo24.png"></p><p>
+You see a "Linux Overview" page,
+as shown below.
+</p><p><img src="./instructions_files/sumo25.png"></p><p>
+On your cloud Debian machine,
+execute this command:
+</p><blockquote><b><big><code><pre>sudo su fred
+</pre></code></big></b></blockquote>
+The command fails,
+as shown below.
+<p><img src="./instructions_files/sumo26.png"></p><p>
+</p><h2>5.6: COMMAND (20 pts)</h2>
+On the Sumo Logic web page,
+on the left side, in the black bar,
+click <b>_sourceCategory="linux/system"</b>.
+<p>
+Add <b>fred</b> to the search string and find the
+four events.
+</p><p>
+The flag is covered by a green box in the image
+below.
+</p><p><img src="./instructions_files/sumo27.png"></p><p>
+</p><hr>
+<h1>Task 4: Google Cloud Apps</h1>
+<blockquote>
+<table cellpadding="10" border="5"><tbody><tr><td>
+<h2>Warning: This Is Impossible</h2>
+I've spent days struggling with this, and I
+cannot get any data into Sumo Logic's
+Google Cloud Audit app.
+<p>
+Here are the steps I was able to find in the
+many, baffling, contradictory help
+pages. I don't know how anyone uses
+this stuff.
+</p><p>
+Giving this to students now is like throwing
+children into a pool full of alligators. It's
+worth points in the competition to complete
+the steps detailed below, but it will end
+in failure.
+</p><p>
+Hopefully someone will tell me what I
+am doing wrong, or whatever is broken will
+get fixed.
+</p></td></tr></tbody></table>
+</blockquote>
+<h2>Configuring a Hosted Collector</h2>
+On the Sumo Logic web page,
+on the left side, in the black bar,
+at the bottom, click
+"<b>Manage Data</b>".
+<p>
+Click <b>Collection</b>.
+</p><p>
+On the right side,
+click the "<b>Add Collector</b>"
+link.
+</p><p>
+Click "<b>Hosted Collector</b>".
+</p><p>
+Name your collector, as shown below,
+and click <b>Save</b>.
+</p><p><img src="./instructions_files/sumo30.png"></p><p>
+A "Confirm" box appears,
+asking whether to add a data
+source.
+</p><p>
+Click <b>OK</b>.
+</p><p><img src="./instructions_files/sumo31.png"></p><p>
+On the next page, click
+"<b>Google Cloud Platform</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo32.png"></p><p>
+In the next page, enter <b>gc1</b>
+in three of the fields and,
+on the right side,
+click the
+blue "<b>Create URL</b>" button.
+</p><p><img src="./instructions_files/sumo33.png"></p><p>
+Click the
+gray "<b>Copy URL</b>" button.
+</p><h2>Adding the URL to Google Cloud Platform</h2>
+In Google Cloud Console, at the top left, click
+the three-bar icon.
+<p>
+Click
+"<b>APIs &amp; Services</b>",
+<b>Credentials</b>.
+</p><p>
+At the top center, in small gray
+letters, click
+"<b>Domain verification</b>".
+</p><p>
+Click the blue "<b>Add Domain</b>" button.
+</p><p>
+In the "Configure webhook notifications"
+box, paste in the URL, as
+shown below.
+</p><p>
+Click "<b>ADD DOMAIN</b>".
+</p><p><img src="./instructions_files/sumo31.png"></p><p>
+A "Verify ownership" box pops up.
+</p><p>
+Click "<b>TAKE ME THERE</b>".
+</p><p>
+Log in to your Google Cloud account.
+Click the red
+"<b>ADD A PROPERTY</b>" button.
+</p><p>
+Paste in the URL again.
+</p><p>
+Click <b>Continue</b>.
+</p><p>
+You see the page shown below.
+</p><p><img src="./instructions_files/sumo35.png"></p><p>
+Do not click Verify yet. Download and open the HTML verification file. It contains a verification string,
+as shown below.
+</p><p><img src="./instructions_files/sumo36.png"></p><p>
+In the Sumo Logic page,
+paste in the Verification File Name and
+Verification File Contents,
+as shown below.
+</p><p>
+At the bottom, click the blue
+<b>Save</b> button.
+</p><p><img src="./instructions_files/sumo37.png"></p><p>
+Return to Google's Webmaster Central and click Verify. It should verify successfully.
+</p><h2>5.7: Verification (20 pts)</h2>
+In Google Cloud Console, at the top left, click
+the three-bar icon.
+<p>
+Click
+"<b>APIs &amp; Services</b>",
+<b>Credentials</b>.
+</p><p>
+At the top center, in small gray
+letters, click
+"<b>Domain verification</b>".
+</p><p>
+The flag is covered by a green box
+in the image below.
+</p><p><img src="./instructions_files/sumo42.png"></p><p>
+</p><h2>Configure a Pub/Sub topic for GCP projects</h2>
+In Google Cloud Console, at the top left, click
+the three-bar icon.
+<p>
+Scroll down to the "BIG DATA" section.
+</p><p>
+Click
+"<b>Pub/Sub</b>",
+<b>Topics</b>,
+as shown below.
+</p><p><img src="./instructions_files/sumo44.png"></p><p>
+Click the blue "<b>Create a topic</b>"
+button.
+</p><p>
+In the "Create a topic" box, add
+<b>debian</b> to the name,
+as shown below.
+</p><p>
+Click <b>CREATE</b>.
+</p><p><img src="./instructions_files/sumo45.png"></p><p>
+On the "Topic details" page,
+at the top center,
+click the three-dot icon
+and click
+"<b>Create subscription</b>",
+as shown below.
+</p><p><img src="./instructions_files/sumo46.png"></p><p>
+In the Create a subscription page,
+add
+<b>debian</b> to the "Subscription name".
+</p><p>
+In the "Delivery Type" section,
+click <b>Push</b>,
+as shown below.
+</p><p><img src="./instructions_files/sumo47.png"></p><p>
+On the Sumo Logic web page,
+on the left side, in the black bar,
+at the bottom,
+click "<b>Manage Data</b>".
+</p><p>
+Click <b>Collection</b>.
+</p><p>
+In the main pane, on the right,
+In the "GoogleCloud" section,
+on the "gc1" line, click
+the "<b>Show URL</b>" link,
+as shown below.
+</p><p><img src="./instructions_files/sumo49.png"></p><p>
+Your HTTP Source Address appears,
+as shown below.
+</p><p>
+Copy it.
+</p><p><img src="./instructions_files/sumo50.png"></p><p>
+In the Google Cloud Platform page,
+paste in the URL,
+as shown below.
+</p><p>
+At the bottom of the page, click
+<b>Create</b>.
+</p><p><img src="./instructions_files/sumo51.png"></p><p>
+The subscription is created,
+as shown below.
+</p><p><img src="./instructions_files/sumo52.png"></p><p>
+</p><h2>Create export of Cloud Audit logs from Stackdriver</h2>
+In Google Cloud Console, at the top left, click
+the three-bar icon.
+<p>
+Scroll down to the STACKDRIVER section.
+</p><p>
+Click
+<b>Logging</b>.
+</p><p>
+Click <b>Exports</b>.
+</p><p>
+Click "<b>CREATE EXPORT</b>".
+</p><p>
+In the top left drop-down list box,
+select "<b>GCS Bucket</b>".
+</p><p>
+In the Edit Export window on the right:
+</p><ul>
+<li>Set the Sink Name to <b>gce-vm-instance</b>
+</li><li>Set Sink Service to "<b>Cloud Pub/Sub</b>"
+</li><li>Set Sink Destination <b>debian</b>
+</li><li>Click the blue "<b>Create Sink</b>" button.
+</li></ul>
+<p><img src="./instructions_files/sumo59.png"></p><p>
+</p><h2>5.8: Sink Created (20 pts)</h2>
+A "Sink created" box pops up.
+<p>
+The flag is covered by a green box in the
+image below.
+</p><p><img src="./instructions_files/sumo60.png"></p><p>
+</p><p>
+</p><p>
+Click <b>CLOSE</b>.
+</p><h2>Installing the Google Cloud Audit App</h2>
+In Sumo Logic,
+on the left side,
+at the bottom,
+click "<b>App Catalog</b>".
+<p>
+In the "App Catalog" pane,
+on the left side, click the
+"<b>Google Cloud Platform</b>" category.
+</p><p>
+Click thhe
+"<b>Google Cloud Audit</b>" icon,
+as shown below.
+</p><p><img src="./instructions_files/sumo55.png"></p><p>
+Click the blue "<b>Add to Library</b>"
+button.
+</p><p>
+An "Add <b>Google Cloud Audit</b> to Library"
+box pops up.
+</p><p>
+In the "Source Category" field, click the
+drop-down arrow and click
+"<b>Enter a Custom Data Filter</b>".
+</p><p>
+In the "Custom Data Filter" field,
+enter this value,
+as shown below.
+</p><blockquote><b><big><code><pre>_sourceCategory=gcloud
+</pre></code></big></b></blockquote>
+<p><img src="./instructions_files/sumo56.png"></p><p>
+Click the blue "<b>Add to Library</b>"\
+button.
+</p><h2>Installing the Stackdriver Logging Agent</h2>
+In a Terminal on your Google Cloud
+Debian server,
+and execute these commands:
+<blockquote><b><big><code><pre>curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
+sudo bash install-logging-agent.sh
+</pre></code></big></b></blockquote>
+as shown below.
+<p><img src="./instructions_files/sumo57.png"></p><p>
+</p><h2>Viewing Logs</h2>
+In the browser showing Google Cloud
+Console, go to:
+<p>
+<a href="https://samsclass.info/50/proj/console.cloud.google.com/logs/viewer"><b>
+console.cloud.google.com/logs/viewer</b></a>
+</p><p>
+In the top left drop-down list,
+select
+"<b>GCE VM Instance</b>",
+<b>debian</b>.
+</p><p>
+The log entries appear,
+as shown below.
+</p><p><img src="./instructions_files/sumo58.png"></p><p>
+</p><h2>5.9: Log Entry (20 pts)</h2>
+Open a new Terminal on your Google Cloud
+Debian server.
+<p>
+New log entries appear as a result.
+</p><p>
+The flag is covered by a green box in the
+image below.
+</p><p><img src="./instructions_files/sumo61.png"></p><p>
+</p><h2>Sumo Logic Fails</h2>
+Google is gathering log data and supposedly
+sending it somewhere, but
+unfortunately, the Sumo Logic app
+shows no data, as shown below.
+<p><img src="./instructions_files/sumo62.png"></p><p>
+</p><h2>References</h2>
+<a href="https://help.sumologic.com/01Start-Here/Quick-Start-Tutorials">
+https://help.sumologic.com/01Start-Here/Quick-Start-Tutorials
+</a><br>
+<a href="https://help.sumologic.com/03Send-Data/Installed-Collectors/05Reference-Information-for-Collector-Installation/04Add-a-Collector-to-a-Linux-Machine-Image">
+Add a Collector to a Linux Machine Image</a><br>
+<a href="https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/Google-Cloud-Platform-Source">
+Configure a Google Cloud Platform Source</a><br>
+<hr>
+Posted 5-4-19-19 10 am<br>
+
+
+</body></html>
