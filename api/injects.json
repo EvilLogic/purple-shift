@@ -1,71 +1,46 @@
 [{
-	"title": "Question 1.1",
-	"question": "See samsclass",
-	"points": 5,
-	"answer": "3333"
-}, {
-	"title": "Question 1.2",
+	"title": "Question 5.1",
 	"question": "See samsclass",
 	"points": 10,
-	"answer": "thousand"
+	"answer": "googleplex"
 }, {
-	"title": "Question 2.1",
+	"title": "Question 5.2",
 	"question": "See samsclass",
-	"points": 15,
-	"answer": "8357"
+	"points": 5,
+	"answer": "3"
 }, {
-	"title": "Question 2.2",
-	"question": "See samsclass",
-	"points": 20,
-	"answer": "alpine"
-}, {
-	"title": "Question 2.3",
+	"title": "Question 5.3",
 	"question": "See samsclass",
 	"points": 10,
-	"answer": "bill2"
+	"answer": "korea"
 }, {
-	"title": "Question 2.4",
-	"question": "See samsclass",
-	"points": 20,
-	"answer": "2 columns"
-}, {
-	"title": "Question 2.5",
-	"question": "See samsclass",
-	"points": 20,
-	"answer": "4888"
-}, {
-	"title": "Question 2.6",
+	"title": "Question 5.4",
 	"question": "See samsclass",
 	"points": 10,
-	"answer": "999"
+	"answer": "kingdom"
 }, {
-	"title": "Question 3.1",
-	"question": "See samsclass",
-	"points": 5,
-	"answer": "8"
-}, {
-	"title": "Question 3.2",
+	"title": "Question 5.5",
 	"question": "See samsclass",
 	"points": 20,
-	"answer": "111"
+	"answer": "france"
 }, {
-	"title": "Question 3.3",
-	"question": "See samsclass",
-	"points": 5,
-	"answer": "1"
-}, {
-	"title": "Question 3.4",
-	"question": "See samsclass",
-	"points": 5,
-	"answer": "1"
-}, {
-	"title": "Question 3.5",
+	"title": "Question 5.6",
 	"question": "See samsclass",
 	"points": 20,
-	"answer": "x"
+	"answer": "/bin/su"
 }, {
-	"title": "Question 2.5",
+	"title": "Question 5.7",
 	"question": "See samsclass",
-	"points": 30,
-	"answer": "frog"
+	"points": 20,
+	"answer": "receiver"
+}, {
+	"title": "Question 5.8",
+	"question": "See samsclass",
+	"points": 20,
+	"answer": "logging"
+}, {
+	"title": "Question 5.9",
+	"question": "See samsclass",
+	"points": 20,
+	"answer": "20"
 }]
